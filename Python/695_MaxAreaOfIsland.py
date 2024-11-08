@@ -17,7 +17,12 @@ class Solution(object):
         print(memo)
         
         def rf(grid, r, c, maxr, maxc):
-            if grid[r][c] == 1:
+
+            size = 0
+
+            if grid[r][c] != 1: # base
+                return size
+            else:
                 grid[r][c] = 2
                 size = 1
                 print(size)
@@ -29,8 +34,6 @@ class Solution(object):
                     size += rf(grid,r+1,c,maxr,maxc)
                 if c < maxc-1:
                     size += rf(grid,r,c+1,maxr,maxc)
-            else:
-                size = 0
 
             return size
 
