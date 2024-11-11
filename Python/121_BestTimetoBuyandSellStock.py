@@ -5,12 +5,12 @@ class Solution(object):
         :rtype: int
         """
 
-        cash = [0 for i in range(len(prices)+1)]
+        memo = [0 for i in range(len(prices)+1)]
         ret = 0
 
         for i in range(len(prices)-1,-1,-1):
-            ret = max(ret, cash[i+1]-prices[i])
-            cash[i] = max(prices[i], cash[i+1])
+            ret = max(ret, memo[i+1]-prices[i])
+            memo[i] = max(prices[i], memo[i+1])
 
         return ret
 

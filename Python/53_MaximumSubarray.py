@@ -4,20 +4,18 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-
-        cash = [0 for i in range(len(nums)+1)]
         
-        for i in range(len(nums)-1,-1,-1):
-            val = nums[i] + cash[i+1]
-            if val > 0:
-                cash[i] = val
-            else:
-                cash[i] = nums[i]
+        endPoint = nums[0]
+        res = nums[0]
 
-        return max(cash)
+        for i in range(1,len(nums)):
+            endPoint = max(endPoint+nums[i], nums[i])
+            res = max(res, endPoint)
 
-# apply memoization to the solution
-# Advantage: to skip duplicated caluculation
-# time: O(N)    N is the number of the array
-# memory: O(N)  needs array and cash 
-        
+        return res
+
+#kadane's algorithm
+#nums       -2,1-3,4
+#endPoint   -2,1,1,4
+#res        -2,1,1,4
+
