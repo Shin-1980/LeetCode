@@ -4,34 +4,32 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
-        
-        b1 = 0 # ()
-        b2 = 0 # {}
-        b3 = 0 # []
+
+        st = []
 
         for i in range(len(s)):
-            if s[i] == '(':
-                b1 += 1
-            elif s[i] == ')':
-                b1 -= 1
-            elif s[i] == '}':
-                b2 -= 1
-            elif s[i] == '{':
-                b2 += 1
-            elif s[i] == '[':
-                b3 += 1
-            elif s[i] == ']':
-                b3 -= 1
-                
-            if b1 < 0 or b2 < 0 or b3 < 0:
-                return False
-            
-        if b1 == 0 and b2 == 0 and b3 == 0:
-            return True
-        
-        return Fase
+            if s[i] == '(' or s[i] == '{' or s[i] == '[':
+                st.append(s[i])
+            else:
+                if len(st) < 1:
+                    return False
+                elif s[i] == ')':
+                    c = st.pop()
+                    if c != '(':
+                        return False
+                elif s[i] == '}':
+                    c = st.pop()
+                    if c != '{':
+                        return False
+                elif s[i] == ']':
+                    c = st.pop()
+                    if c != '[':
+                        return False
 
-        
+        if len(st) == 0:
+            return True
+
+        return False    
 
 # utilize three stacks
 # push (, {, [

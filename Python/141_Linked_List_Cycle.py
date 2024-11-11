@@ -14,7 +14,18 @@ class Solution(object):
         fi = head   # faset index
         si = head   # slow index
 
-        while 
+        while True:
+            
+            if si == None or si.next == None:
+                return False
+
+            fi = fi.next
+            si = si.next.next
+
+            if fi == si:
+                return True
+
+        return False
 
 # two pointers
 # time: O(N)    N is num of node.       N / 2
@@ -22,4 +33,3 @@ class Solution(object):
 
 # if next node is null -> false
 # check address not value
-

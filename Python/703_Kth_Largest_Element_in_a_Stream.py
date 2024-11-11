@@ -1,14 +1,7 @@
 class KthLargest(object):
 
     scores = []
-    topK = 0
-
-    def sort(self):
-        i = len(self.scores) - 1
-
-        while i >= 1 and self.scores[i-1] < self.scores[i]:
-            self.scores[i-1], self.scores[i] = self.scores[i], self.scores[i-1]
-            i -= 1
+    k = 0
 
     def __init__(self, k, nums):
         """
@@ -16,11 +9,11 @@ class KthLargest(object):
         :type nums: List[int]
         """
 
-        self.topK = k
+        self.k = k
         self.scores = []
 
-        for i in range(len(nums)):
-            self.add(nums[i])
+        for num in nums:
+            self.add(num)
 
     def add(self, val):
         """
@@ -28,27 +21,15 @@ class KthLargest(object):
         :rtype: int
         """
 
-        if len(self.scores) < self.topK:
-            self.scores.append(val)
-            self.sort()
-        else:
-            if self.scores[self.topK - 1] < val:
-                self.scores[self.topK - 1] = val
-                self.sort()
-                    
-        print(self.scores)
+        heappush(self.scores, val)
+        if len(self.scores) > self.k:
+            heappop(self.scores)
 
-        if len(self.scores) < self.topK:
-            return None
+        return self.scores[0]
 
-        return self.scores[self.topK - 1]
-
-# data structure: arry
-# search algorithm: babble sort
+# data structure: heapqueue
 # time O(N logN)    N is a number of students
 # memory O(k)
-
-
 
 # Your KthLargest object will be instantiated and called as such:
 # obj = KthLargest(k, nums)
