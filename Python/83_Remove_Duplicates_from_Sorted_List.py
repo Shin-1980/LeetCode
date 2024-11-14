@@ -10,16 +10,22 @@ class Solution(object):
         :rtype: Optional[ListNode]
         """
 
-        i = head   # index
+        if head == None:
+            return head
 
-        while i.next != None:
-            if i.val == i.next.val:
-                i.next = i.next.next
+        cur = head
+
+        while cur.next != None:
+            if cur.val == cur.next.val:
+                cur.next = cur.next.next
             else:
-                i = i.next
+                cur = cur.next
 
         return head
+
+# time O(N)  N is the numeber of nodes
+# memory O(N) 
+# the number of nodes [0, 300] 0 means NULL
+
+
         
-# check a value at the next node
-# if the next value is same as the current: link to next next node.
-# if not same: go to the next node.
