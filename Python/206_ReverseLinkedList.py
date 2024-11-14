@@ -4,38 +4,24 @@
 #         self.val = val
 #         self.next = next
 class Solution(object):
-    res = None
-    next = None
-
     def reverseList(self, head):
         """
         :type head: Optional[ListNode]
         :rtype: Optional[ListNode]
         """
 
-        def rf(head):
-            node = head
+        st = []     #stack
+        cur = head
 
-            if head != None and head.next == None:    # base
-                self.res = ListNode(head.val)
-                self.next = self.res
-                return
-            else:
-                if head != None:
-                    rf(head.next)
+        while cur != None:
+            st.append(cur.val)
+            cur = cur.next
 
-                if node != None:
-                    newNode = ListNode(node.val)
-                    self.next.next = newNode
-                    self.next = self.next.next
+        cur = head
+        while cur != None:
+            cur.val = st.pop(len(st)-1)
+            cur = cur.next
 
-            return
-
-        rf(head)
-        return self.res
+        return head
         
-
-# recursive function
-# time: O(N)    N is a number of nodes
-# memory: O(N) 
-# advantage: no additional memory
+        
