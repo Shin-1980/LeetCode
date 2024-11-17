@@ -14,9 +14,12 @@ void moveZeroes(int* nums, int numsSize) {
     }
 }
 
-
 /*
-The goal of the problem is to return the array such that all 0 are moved to the end of the array. 
-I use a pointer to solve this issu.
-In this approach, the algorithm iterates through the array from the beginning to the end. During this process, the algorithm counts the number of zero. If the element is not zero, this element is copied to the left side of the array in order.
+The goal of the problem is to modify the array such that all the zeros are moved to the end while maintaining the relative order of the non-zero elements.
+I use a pointer-based approach to solve this issu.
+In this approach, the algorithm iterates through the array from the beginning to the end. 
+During the iteration, the algorithm keeps track of the count of zeroes. 
+For each non-zero element encountered, the element is copied to the left side of the array in order. 
+This ensures that all-non-zero elements are shifted to the front, leaving space for the zeroes at the end.
 */
+
