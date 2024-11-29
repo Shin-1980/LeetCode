@@ -1,21 +1,25 @@
 class Solution(object):
+
+
     def rob(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
 
-        sumOdd = 0
-        sumEven = 0
+        memo = [-1 for _ in range(len(nums))]
 
-        for i in range(len(nums)):
-            if i % 2 == 0:
-                sumOdd += nums[i]
-            else:
-                sumEven += nums[i]
+        print(memo)
 
-        return max(sumOdd, sumEven)
+        def bt(nums, n, memo):
+            if n < 0: return 0
+            if memo[n] != -1: return memo[n]
 
-# Algorithm: compare the sum of elements at odd indices with the sum of elements at even indices
-# time: O(N)    N is the num of elements
-# memory: O(N)
+            pick = nums[n] + bt(nums,n-2,memo)
+            notPick = bt(nums,n-1,memo)
+
+            memo[n] = max(pick, notPick)
+
+            return memo[n]
+
+        return bt(nums,len(nums)-1,memo)
