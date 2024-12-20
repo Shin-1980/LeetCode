@@ -1,25 +1,18 @@
+using namespace std;
+#include<unordered_map>
+#include<string>
+
 class Solution {
 public:
     int firstUniqChar(string s) {
-        
-        int counters[26];
+        unordered_map<char, int> ht;
 
-        for (auto counter: counters) counter = 0;
+        for (auto& c: s) ht[c]++;
         
-        for (auto c: s) {
-            int idx = c - 'a';
-            cout << idx << endl;
-            counters[idx]++;
-        }
-
-        int idxArray = 0;
-        for (auto c: s) {
-            int idx = c - 'a';
-            if (counters[idx] == 1) return idxArray;
-            idxArray++;
+        for (int i=0;i<s.size();i++) {
+            if (ht[s[i]] == 1) return i;
         }
 
         return -1;
-        
     }
 };
