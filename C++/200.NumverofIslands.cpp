@@ -1,45 +1,40 @@
 #include <vector>
 
+using namespace std;
+
 class Solution {
-private:
-
-    std::vector<std::vector<char>> map;
-    int maxR;
-    int maxC;
-
-    void search(int r, int c) {
-        if (map[r][c] == '1') {
-            map[r][c] = '2';
-            if (r > 0) search(r-1,c);
-            if (c > 0) search(r,c-1);
-            if (r < maxR-1) search(r+1,c);
-            if (c < maxC-1) search(r,c+1);
-        }
-   }
-
 public:
-    int numIslands(std::vector<std::vector<char>>& grid) {
-        maxR = size(grid);
-        maxC = size(grid[0]);
-        map = grid;
-
-        for (int r=0;r<maxR;r++){
-            for (int c=0;c<maxC;c++){
-                map[r][c] = grid[r][c];
-            }
+    void search(std::vector<std::vector<char>>& grid, size_t r, size_t c){
+        if (r > 0 && grid[r-1][c] == '1') {
+            grid[r-1][c] = '2';
+            search(grid, r-1, c);
         }
+        if (c > 0 && grid[r][c-1] == '1') {
+            grid[r][c-1] = '2';
+            search(grid, r, c-1);
+        }
+        if (r+1 < grid.size() && grid[r+1][c] == '1') {
+            grid[r+1][c] = '2';
+            search(grid, r+1, c);
+        }
+        if (c+1 < grid[0].size() && grid[r][c+1] == '1') {
+            grid[r][c+1] = '2';
+            search(grid, r, c+1);
+        }
+    }
 
-        int count = 0;
+    int numIslands(std::vector<std::vector<char>>& grid) {
+        int num = 0;
 
-        for (int r=0;r<maxR;r++){
-            for (int c=0;c<maxC;c++){
-                if (map[r][c] == '1'){
-                    count++;
-                    search(r,c);
+        for (size_t r=0;r<grid.size();r++) {
+            for (size_t c=0;c<grid[0].size();c++) {
+                if (grid[r][c] == '1') {
+                    num++;
+                    search(grid,r,c);
                 }
             }
         }
 
-        return count;
+        return num;
     }
 };

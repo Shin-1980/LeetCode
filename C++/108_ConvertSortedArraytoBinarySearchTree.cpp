@@ -1,27 +1,32 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
+using namespace std;
+#include <vector>
+
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+};
+ 
 class Solution {
-private:
-    TreeNode* bnSearch(vector<int>& nums, int s, int e) {
-        if (s > e) return NULL;
-        else {
-            int m = (e + s) / 2;
-            TreeNode* newN = new TreeNode(nums[m],bnSearch(nums,s,m-1),bnSearch(nums,m+1,e));
-            return newN;
-        }
-    }
 public:
+    void makeTree(vector<int>& nums, TreeNode*& root, int l, int r) {
+        if (l > r) return;
+
+        int m = (r+l) / 2;
+        root = new TreeNode(nums[m]);
+
+        makeTree(nums, root->left, l, m-1);
+        makeTree(nums, root->right, m+1, r);
+    }
+
     TreeNode* sortedArrayToBST(vector<int>& nums) {
-        return bnSearch(nums,0,nums.size()-1);
+        TreeNode* root;
+        makeTree(nums, root, 0, nums.size()-1);
+        
+        return root;
     }
 };
 
