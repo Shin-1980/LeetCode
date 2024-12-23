@@ -1,15 +1,18 @@
+using namespace std;
+#include <vector>
+
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
-        int curT = 0;
-        int maxT = 0;
+        int sum = 0;
+        int total = nums[0];
 
-        for (auto num: nums) {
-            curT = max(num, curT+num);
-            maxT = max(curT, maxT);
+        for (auto num:nums){
+            sum = max(num, num + sum);
+            total = max(sum, total);
         }
-        
-        return maxT;
+
+        return total;
     }
 };
 
