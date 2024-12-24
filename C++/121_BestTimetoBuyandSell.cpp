@@ -1,16 +1,17 @@
+using namespace std;
+#include <vector>
+
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-        int mprice = prices[prices.size()-1];
-        int ret = 0;
+        int minV=prices[0];
+        int maxD=0;
 
-        for (int i=prices.size()-2;i>-1;i--) {
-            mprice = max(prices[i], mprice);
-            ret = max(ret, mprice - prices[i]);
+        for(auto price:prices) {
+            minV = min(minV, price);
+            maxD = max(maxD, price - minV);
         }
 
-        return ret;
+        return maxD;
     }
 };
-
-// algorithm: memoization

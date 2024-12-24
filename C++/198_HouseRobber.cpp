@@ -1,19 +1,19 @@
-class Solution {
+using namespace std;
+#include <vector>
 
-    int backtruck(vector<int>& nums, int n, vector<int>& memo) {
-        if (n < 0) return 0;
-        if (memo[n] != -1) return memo[n];
-        
-        int pick = nums[n] + backtruck(nums, n-2, memo);
-        int notPick = backtruck(nums, n-1, memo);
-        memo[n] = max(pick, notPick);
-            
-        return memo[n];
+class Solution {
+public:
+    int backtruc(vector<int>& nums, int cur, vector<int>& memo){
+        if(cur >= nums.size()) return 0;
+        if (memo[cur] != -1) return memo[cur];
+
+        memo[cur] = max(nums[cur] + backtruc(nums, cur+2, memo),  backtruc(nums, cur+1, memo));
+        return memo[cur];
     }
 
-public:
     int rob(vector<int>& nums) {
         vector<int> memo(nums.size(),-1);
-        return backtruck(nums, nums.size()-1, memo);
+
+        return rec(nums, 0, memo);        
     }
 };
