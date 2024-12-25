@@ -1,19 +1,21 @@
+using namespace std;
+#include <vector>
+
 class Solution {
 public:
     int searchInsert(vector<int>& nums, int target) {
-        int idxh = 0;                // head
-        int idxt = nums.size()-1;    // tail
+        int l=0;
+        int r=nums.size()-1;
 
-        if (nums[idxt] < target) return nums.size();
-
-        while (idxh < idxt) {
-            int idxm = (idxh + idxt) / 2;
-            cout << idxm << endl;
-            if (nums[idxm] == target) return idxm;
-            else if (nums[idxm] < target) idxh = idxm + 1;
-            else idxt = idxm;
+        if (nums[nums.size()-1] < target) return nums.size();
+        
+        while (l<r) {
+            int m = (r+l)/2;
+            if (nums[m]==target) return m;
+            else if(nums[m] < target) l = m + 1;
+            else r = m;
         }
 
-        return idxh;
+        return l;
     }
 };
