@@ -1,41 +1,36 @@
+using namespace std;
+#include <vector>
+
 class Solution {
-    
-void backtrack(vector<int>& nums, vector<bool>& map, vector<int> cur, vector<vector<int>> &res) {
 
-    if (cur.size() == nums.size()) {  // base
-        res.push_back(cur);
-        return;
-    }
-
-    for (int i=0;i<nums.size();i++) {
-        if (!map[i]) {
-            map[i] = true;
-            cur.push_back(nums[i]);
-            backtrack(nums, map, cur, res);
-            map[i] = false;
-            cur.pop_back();
-
-        }
-    }
-
-    return;
-}
+vector<vector<int>> res;
 
 public:
-    vector<vector<int>> permute(vector<int>& nums) {
-        vector<vector<int>> res;
-        vector<bool> map;
-
-        for (int i=0;i<nums.size();i++) {
-            map.push_back(false);
+    void rec(vector<int>& nums, vector<int>& cur, vector<bool>& used) {
+        if (nums.size() == cur.size()) {
+            this->res.push_back(cur);
+            return;
         }
 
+        if (nums.size() == cur.size()) return;
+
+        for (int i=0;i<nums.size();i++) {
+            if (!used[i]) {
+                used[i]=true;
+                cur.push_back(nums[i]);
+                rec(nums, cur, used);
+                used[i]=false;
+                cur.pop_back();
+            }
+        }
+    }
+
+    vector<vector<int>> permute(vector<int>& nums) {
         vector<int> cur;
+        vector<bool> used(nums.size(), false);
+        
+        rec(nums, cur, used);
 
-        backtrack(nums, map, cur, res);
-
-        return res;
+        return this->res;
     }
 };
-
-

@@ -1,37 +1,26 @@
+using namespace std;
+#include <vector>
+
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        std::set<char> charSet;
+        vector<bool> ht(256,false);
 
-        int l = 0;
-        int res = 0;
+        int maxCount=0;
+        int l=0;
+        int r=0;
 
-        for (int r=0;r<s.size();r++) {
-
-            while(charSet.count(s[r])) {
-                charSet.erase(s[l]);
-                l++;
-                std::cout << charSet.count(s[r]) << std::endl;
+        for (auto c:s) {
+            while(ht[c]){
+                ht[s[l++]]=false;
             }
+            ht[c]=true;
 
-            charSet.insert(s[r]);
-            
-            std::cout << r << ":" << l << " " << std::endl;
-
-            res = std::max(res, r - l + 1);
-
+            maxCount = max(maxCount, r-l+1);
+            r++;
         }
 
-        return res;
-
+        return maxCount;
+        
     }
 };
-
-// abc(a)
-//  bca(b)
-
-// abc(a)d
-//  bcad
-
-// curlength (cur+1,)
-// maxlength (max,cur)
