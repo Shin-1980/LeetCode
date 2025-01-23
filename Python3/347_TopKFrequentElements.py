@@ -4,19 +4,24 @@ class Solution:
         ht = {}
 
         for num in nums:
-            if num not in ht:
-                ht[num] = 1
-            else:
+            if num in ht:
                 ht[num] += 1
+            else:
+                ht[num] = 1
 
-        min_heap = []
+        hp = []
 
-        for key, val in ht.items():
-            heappush(min_heap, (val, key))
+        for key, value in ht.items():
+            heappush(hp, (value, key))
+            if len(hp) > k:
+                heappop(hp)
 
-            if len(min_heap) > k:
-                heappop(min_heap)
+        for e in hp:
+            print(e)
 
-        top_k_freq = [pair[1] for pair in min_heap]
+        ans = []
 
-        return top_k_freq 
+        for e in hp:
+            ans.append(e[1])
+
+        return ans

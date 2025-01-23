@@ -1,18 +1,19 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        
+        mp = {')':'(','}':'{',']':'['}
         st = []
-        mapping = {')':'(', '}':'{', ']':'['}
 
         for c in s:
-            if c in mapping.values():
+            if c in mp.values():
                 st.append(c)
-            elif c in mapping:
-                if not st or st[-1] != mapping[c]:
+            elif c in mp.keys():
+                if len(st) > 0:
+                    ctop = st.pop()
+                    if mp[c] != ctop:
+                        return False
+                else:
                     return False
-                st.pop()
             else:
                 return False
-
-        return not st
         
+        return not st
